@@ -1,0 +1,35 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: user_route
+          uri: lb://service-user
+          predicates:
+            - Path=/api/user/**
+          filters:
+              - RewritePath=/api/user/(?<segment>.*), /user/${segment}
+              - AddRequestHeader=Token, tokenHere...
+
+        - id: post_route
+          uri: lb://service-post
+          predicates:
+            - Path=/api/post/**
+          filters:
+            - RewritePath=/api/post/(?<segment>.*), /post/${segment}
+              
+        - id: todo_route
+          uri: lb://service-todo
+          predicates:
+            - Path=/api/todo/**
+          filters:
+            - RewritePath=/api/todo/(?<segment>.*), /todo/${segment}
+        
+
