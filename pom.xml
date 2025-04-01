@@ -14,6 +14,7 @@
       <module>service-post</module>
     <module>service-comment</module>
       <module>gateway</module>
+    <module>service-forum</module>
   </modules>
 
   <modelVersion>4.0.0</modelVersion>
